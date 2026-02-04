@@ -13,6 +13,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="components/pbr-phone.css">
 </head>
 
 <body class="download-page">
@@ -85,24 +86,78 @@
             </div>
 
             <div class="download-visual">
-                <div class="phones-container">
-                    <div class="phone phone-front">
-                        <div class="phone-frame">
-                            <div class="phone-screen">
-                                <div class="screen-content home-screen">
-                                    <div class="app-greeting"><span class="greeting-wave">👋</span>
-                                        <h3>Welcome to Paris!</h3>
+                <div class="pbr-phone-container">
+                    <div class="pbr-phone">
+                        <!-- Ambient Glow -->
+                        <div class="pbr-phone-glow"></div>
+
+                        <!-- Phone Body - Titanium Frame -->
+                        <div class="pbr-phone-body">
+                            <!-- Side Buttons -->
+                            <div class="pbr-phone-button pbr-phone-button--power"></div>
+                            <div class="pbr-phone-button pbr-phone-button--volume-up"></div>
+                            <div class="pbr-phone-button pbr-phone-button--volume-down"></div>
+                            <div class="pbr-phone-button pbr-phone-button--silent"></div>
+                        </div>
+
+                        <!-- Screen Container -->
+                        <div class="pbr-phone-screen-container">
+                            <div class="pbr-phone-screen">
+                                <!-- Dynamic Island -->
+                                <div class="pbr-phone-notch"></div>
+
+                                <!-- Screen Content - Welcome/Home Screen -->
+                                <div class="pbr-phone-content pbr-home-content">
+                                    <!-- Status Bar -->
+                                    <div class="pbr-app-status-bar">
+                                        <span class="time">9:41</span>
+                                        <div class="icons">
+                                            <span>📶</span>
+                                            <span>🔋</span>
+                                        </div>
                                     </div>
-                                    <div class="nearby-card">
-                                        <div class="nearby-header"><span class="nearby-icon">✨</span><span>Nearby
-                                                Discovery</span></div>
-                                        <button class="listen-btn"><span>🎧</span> Listen Now</button>
+
+                                    <!-- Greeting -->
+                                    <div class="pbr-greeting">
+                                        <span class="emoji">👋</span>
+                                        <h3>Welcome to Paris!</h3>
+                                        <p>Ready to explore?</p>
+                                    </div>
+
+                                    <!-- Discovery Card -->
+                                    <div class="pbr-discovery-card">
+                                        <div class="header">
+                                            <span class="icon">✨</span>
+                                            <span>Nearby Discovery</span>
+                                        </div>
+                                        <button class="pbr-listen-btn">
+                                            <span>🎧</span>
+                                            Listen Now
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Glass Reflection -->
+                        <div class="pbr-phone-reflection"></div>
                     </div>
-                    <div class="phones-glow"></div>
+
+                    <!-- Floating Cards (Bubbles) -->
+                    <div class="pbr-floating-cards">
+                        <div class="pbr-float-card pbr-float-card--1">
+                            <span class="icon">📱</span>
+                            <span>Free Download</span>
+                        </div>
+                        <div class="pbr-float-card pbr-float-card--2">
+                            <span class="icon">⚡</span>
+                            <span>Instant Setup</span>
+                        </div>
+                        <div class="pbr-float-card pbr-float-card--3">
+                            <span class="icon">🌍</span>
+                            <span>180+ Countries</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

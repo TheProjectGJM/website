@@ -26,6 +26,7 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="components/pbr-phone.css">
 </head>
 
 <body>
@@ -100,44 +101,82 @@
             </div>
         </div>
         <div class="hero-visual">
-            <div class="phone-mockup">
-                <div class="phone-frame">
-                    <div class="phone-screen">
-                        <div class="app-preview">
-                            <div class="app-header">
-                                <div class="location-pill">
-                                    <span class="location-icon">📍</span>
+            <div class="pbr-phone-container">
+                <div class="pbr-phone">
+                    <!-- Ambient Glow -->
+                    <div class="pbr-phone-glow"></div>
+
+                    <!-- Phone Body - Titanium Frame -->
+                    <div class="pbr-phone-body">
+                        <!-- Side Buttons -->
+                        <div class="pbr-phone-button pbr-phone-button--power"></div>
+                        <div class="pbr-phone-button pbr-phone-button--volume-up"></div>
+                        <div class="pbr-phone-button pbr-phone-button--volume-down"></div>
+                        <div class="pbr-phone-button pbr-phone-button--silent"></div>
+                    </div>
+
+                    <!-- Screen Container -->
+                    <div class="pbr-phone-screen-container">
+                        <div class="pbr-phone-screen">
+                            <!-- Dynamic Island -->
+                            <div class="pbr-phone-notch"></div>
+
+                            <!-- Screen Content -->
+                            <div class="pbr-phone-content">
+                                <!-- Status Bar -->
+                                <div class="pbr-app-status-bar">
+                                    <span class="time">9:41</span>
+                                    <div class="icons">
+                                        <span>📶</span>
+                                        <span>🔋</span>
+                                    </div>
+                                </div>
+
+                                <!-- Location Badge -->
+                                <div class="pbr-location-badge">
+                                    <span class="icon">📍</span>
                                     Paris, France
                                 </div>
-                            </div>
-                            <div class="app-card">
-                                <div class="card-image"></div>
-                                <div class="card-content">
-                                    <h3>Eiffel Tower</h3>
-                                    <p>Discover the iconic symbol of Paris...</p>
-                                </div>
-                                <div class="audio-wave">
-                                    <span></span><span></span><span></span><span></span><span></span>
-                                    <span></span><span></span><span></span><span></span><span></span>
+
+                                <!-- Featured Card -->
+                                <div class="pbr-featured-card" style="margin-top: 16px;">
+                                    <div class="card-image"></div>
+                                    <div class="card-body">
+                                        <div class="card-title">Eiffel Tower</div>
+                                        <div class="card-subtitle">Discover the iconic symbol of Paris...</div>
+
+                                        <!-- Audio Player -->
+                                        <div class="pbr-audio-player">
+                                            <div class="pbr-audio-play-btn">▶</div>
+                                            <div class="pbr-audio-waves">
+                                                <span></span><span></span><span></span><span></span><span></span>
+                                                <span></span><span></span><span></span><span></span><span></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Glass Reflection -->
+                    <div class="pbr-phone-reflection"></div>
                 </div>
-                <div class="phone-glow"></div>
-            </div>
-            <div class="floating-cards">
-                <div class="float-card float-card-1">
-                    <span class="float-icon">🎧</span>
-                    <span>Audio Guide Active</span>
-                </div>
-                <div class="float-card float-card-2">
-                    <span class="float-icon">✨</span>
-                    <span>AI Insight Ready</span>
-                </div>
-                <div class="float-card float-card-3">
-                    <span class="float-icon">🗺️</span>
-                    <span>New Discovery!</span>
+
+                <!-- Floating Cards (Bubbles) -->
+                <div class="pbr-floating-cards">
+                    <div class="pbr-float-card pbr-float-card--1">
+                        <span class="icon">🎧</span>
+                        <span>Audio Guide Active</span>
+                    </div>
+                    <div class="pbr-float-card pbr-float-card--2">
+                        <span class="icon">✨</span>
+                        <span>AI Insight Ready</span>
+                    </div>
+                    <div class="pbr-float-card pbr-float-card--3">
+                        <span class="icon">🗺️</span>
+                        <span>New Discovery!</span>
+                    </div>
                 </div>
             </div>
         </div>
