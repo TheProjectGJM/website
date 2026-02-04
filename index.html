@@ -27,6 +27,7 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="components/pbr-phone.css">
+    <link rel="stylesheet" href="components/pbr-compass.css">
 </head>
 
 <body>
@@ -312,18 +313,45 @@
                 </a>
             </div>
             <div class="experience-visual">
-                <div class="globe-container">
-                    <div class="globe">
-                        <div class="globe-inner"></div>
-                        <div class="location-markers">
-                            <div class="marker marker-1" data-city="Paris"></div>
-                            <div class="marker marker-2" data-city="Tokyo"></div>
-                            <div class="marker marker-3" data-city="New York"></div>
-                            <div class="marker marker-4" data-city="Sydney"></div>
-                            <div class="marker marker-5" data-city="Cairo"></div>
+                <div class="pbr-compass-container">
+                    <div class="pbr-compass">
+                        <!-- Compass Main Body -->
+                        <div class="pbr-compass-body">
+                            <div class="pbr-compass-rim"></div>
+                            <div class="pbr-compass-face">
+                                <div class="pbr-cardinal">
+                                    <span class="n">N</span>
+                                    <span class="e">E</span>
+                                    <span class="s">S</span>
+                                    <span class="w">W</span>
+                                </div>
+                                <div class="pbr-compass-needle">
+                                    <div class="pbr-needle-part pbr-needle-north"></div>
+                                    <div class="pbr-needle-part pbr-needle-south"></div>
+                                    <div class="pbr-center-cap"></div>
+                                </div>
+                            </div>
+                            <div class="pbr-compass-glass"></div>
+                        </div>
+
+                        <!-- Floating Badges -->
+                        <div class="pbr-compass-float pbr-float-1">
+                            <span class="pbr-float-icon">📍</span>
+                            <span>Next: Pantheon</span>
+                        </div>
+                        <div class="pbr-compass-float pbr-float-2">
+                            <span class="pbr-float-icon">↗️</span>
+                            <span>150m ahead</span>
+                        </div>
+                        <div class="pbr-compass-float pbr-float-3">
+                            <span class="pbr-float-icon">🗺️</span>
+                            <span>Where to go?</span>
+                        </div>
+                        <div class="pbr-compass-float pbr-float-4">
+                            <span class="pbr-float-icon">🔍</span>
+                            <span>Searching places...</span>
                         </div>
                     </div>
-                    <div class="connection-lines"></div>
                 </div>
             </div>
         </div>
