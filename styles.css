@@ -804,7 +804,6 @@ img {
 /* ===== Experience Section ===== */
 .experience-section {
     padding: var(--space-4xl) 0;
-    background: linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
 }
 
 .experience-section .section-container {
@@ -1020,7 +1019,6 @@ img {
 /* ===== Testimonials Section ===== */
 .testimonials-section {
     padding: var(--space-4xl) 0;
-    background: var(--color-bg-secondary);
 }
 
 .testimonials-grid {
@@ -1123,13 +1121,7 @@ img {
     filter: blur(100px);
 }
 
-.cta-orb-1 {
-    width: 400px;
-    height: 400px;
-    background: rgba(139, 92, 246, 0.3);
-    top: -100px;
-    left: -100px;
-}
+
 
 .cta-orb-2 {
     width: 300px;
