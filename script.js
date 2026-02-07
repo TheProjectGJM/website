@@ -13,13 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Particle Background System
+ * Particle Background System - Enhanced with diverse shapes
  */
 function initParticles() {
     const container = document.getElementById('particles-container');
     if (!container) return;
 
-    const particleCount = 50;
+    const particleCount = 60;
 
     for (let i = 0; i < particleCount; i++) {
         createParticle(container);
@@ -28,24 +28,92 @@ function initParticles() {
 
 function createParticle(container) {
     const particle = document.createElement('div');
-    particle.className = 'particle';
+
+    // Shape types with their weights (more dots, fewer complex shapes)
+    const shapes = [
+        { type: 'dot', weight: 35 },
+        { type: 'ring', weight: 10 },
+        { type: 'square', weight: 15 },
+        { type: 'line', weight: 15 },
+        { type: 'diamond', weight: 15 },
+        { type: 'cross', weight: 10 }
+    ];
+
+    // Weighted random selection
+    const totalWeight = shapes.reduce((sum, s) => sum + s.weight, 0);
+    let random = Math.random() * totalWeight;
+    let selectedShape = 'dot';
+
+    for (const shape of shapes) {
+        random -= shape.weight;
+        if (random <= 0) {
+            selectedShape = shape.type;
+            break;
+        }
+    }
+
+    particle.className = `particle particle--${selectedShape}`;
 
     // Random position
     particle.style.left = Math.random() * 100 + '%';
     particle.style.top = Math.random() * 100 + '%';
 
-    // Random size
-    const size = Math.random() * 4 + 2;
-    particle.style.width = size + 'px';
-    particle.style.height = size + 'px';
+    // Size based on shape type
+    let size;
+    switch (selectedShape) {
+        case 'ring':
+            size = Math.random() * 10 + 8;
+            break;
+        case 'cross':
+            size = Math.random() * 8 + 6;
+            break;
+        case 'line':
+            size = Math.random() * 15 + 10;
+            particle.style.height = '2px';
+            particle.style.setProperty('--rotation', Math.random() * 360 + 'deg');
+            particle.style.transform = `rotate(${Math.random() * 360}deg)`;
+            break;
+        case 'diamond':
+            size = Math.random() * 5 + 4;
+            break;
+        case 'square':
+            size = Math.random() * 4 + 3;
+            break;
+        default: // dot
+            size = Math.random() * 4 + 2;
+    }
 
-    // Random color from palette
-    const colors = ['#8B5CF6', '#06B6D4', '#EC4899', '#3B82F6'];
-    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.width = size + 'px';
+    if (selectedShape !== 'line') {
+        particle.style.height = size + 'px';
+    }
+
+    // Lighter, more varied color palette
+    const colors = [
+        'rgba(139, 92, 246, 0.8)',   // purple
+        'rgba(6, 182, 212, 0.8)',     // cyan  
+        'rgba(236, 72, 153, 0.7)',    // pink
+        'rgba(59, 130, 246, 0.8)',    // blue
+        'rgba(167, 139, 250, 0.7)',   // light purple
+        'rgba(34, 211, 238, 0.7)',    // light cyan
+        'rgba(255, 255, 255, 0.5)',   // soft white
+        'rgba(129, 140, 248, 0.7)'    // indigo
+    ];
+
+    const selectedColor = colors[Math.floor(Math.random() * colors.length)];
+
+    if (selectedShape === 'ring') {
+        particle.style.borderColor = selectedColor;
+        particle.style.color = selectedColor;
+    } else if (selectedShape === 'cross') {
+        particle.style.color = selectedColor;
+    } else {
+        particle.style.background = selectedColor;
+    }
 
     // Random animation duration and delay
-    particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
-    particle.style.animationDelay = (Math.random() * 5) + 's';
+    particle.style.animationDuration = (Math.random() * 25 + 12) + 's';
+    particle.style.animationDelay = (Math.random() * 8) + 's';
 
     container.appendChild(particle);
 }
