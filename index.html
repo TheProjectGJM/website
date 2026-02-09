@@ -127,9 +127,24 @@
                                 <!-- Status Bar -->
                                 <div class="pbr-app-status-bar">
                                     <span class="time">9:41</span>
-                                    <div class="icons">
-                                        <span>📶</span>
-                                        <span>🔋</span>
+                                    <div class="status-icons">
+                                        <span class="signal-icon">
+                                            <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+                                                <rect x="0" y="8" width="3" height="4" rx="0.5" opacity="1" />
+                                                <rect x="4" y="5" width="3" height="7" rx="0.5" opacity="1" />
+                                                <rect x="8" y="2" width="3" height="10" rx="0.5" opacity="1" />
+                                                <rect x="12" y="0" width="3" height="12" rx="0.5" opacity="0.3" />
+                                            </svg>
+                                        </span>
+                                        <span class="battery-icon">
+                                            <svg width="22" height="11" viewBox="0 0 22 11" fill="none">
+                                                <rect x="0.5" y="0.5" width="18" height="10" rx="2"
+                                                    stroke="currentColor" stroke-opacity="0.7" />
+                                                <rect x="2" y="2" width="13" height="7" rx="1" fill="#4ADE80" />
+                                                <rect x="19" y="3" width="2" height="5" rx="0.5" fill="currentColor"
+                                                    fill-opacity="0.5" />
+                                            </svg>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -139,21 +154,103 @@
                                     Barcelona, Spain
                                 </div>
 
-                                <!-- Featured Card -->
-                                <div class="pbr-featured-card" style="margin-top: 16px;">
-                                    <div class="card-image"></div>
-                                    <div class="card-body">
-                                        <div class="card-title">Sagrada Família</div>
-                                        <div class="card-subtitle">Discover Gaudí's masterpiece...</div>
+                                <!-- Mini Map -->
+                                <div class="pbr-mini-map">
+                                    <div class="map-surface">
+                                        <div class="map-grid"></div>
+                                        <div class="map-streets"></div>
 
-                                        <!-- Audio Player -->
-                                        <div class="pbr-audio-player">
-                                            <div class="pbr-audio-play-btn">▶</div>
-                                            <div class="pbr-audio-waves">
-                                                <span></span><span></span><span></span><span></span><span></span>
-                                                <span></span><span></span><span></span><span></span><span></span>
+                                        <!-- Barcelona Landmarks -->
+                                        <div class="map-marker marker-sagrada" data-name="Sagrada Família">
+                                            <div class="marker-pin"></div>
+                                            <div class="marker-popup">
+                                                <span class="popup-icon">⛪</span>
+                                                <span>Sagrada Família</span>
                                             </div>
                                         </div>
+
+                                        <div class="map-marker marker-guell" data-name="Park Güell">
+                                            <div class="marker-pin"></div>
+                                            <div class="marker-popup">
+                                                <span class="popup-icon">🌳</span>
+                                                <span>Park Güell</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="map-marker marker-rambla" data-name="La Rambla">
+                                            <div class="marker-pin"></div>
+                                            <div class="marker-popup">
+                                                <span class="popup-icon">🚶</span>
+                                                <span>La Rambla</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="map-marker marker-casa" data-name="Casa Batlló">
+                                            <div class="marker-pin"></div>
+                                            <div class="marker-popup">
+                                                <span class="popup-icon">🏛️</span>
+                                                <span>Casa Batlló</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="map-marker marker-beach" data-name="Barceloneta Beach">
+                                            <div class="marker-pin"></div>
+                                            <div class="marker-popup">
+                                                <span class="popup-icon">🏖️</span>
+                                                <span>Barceloneta</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Current Location with Heading -->
+                                        <div class="map-current-location">
+                                            <div class="current-heading"></div>
+                                            <div class="current-pulse"></div>
+                                            <div class="current-dot"></div>
+                                        </div>
+                                    </div>
+                                    <div class="map-overlay"></div>
+                                </div>
+
+                                <!-- Conversation Audio Visualizer -->
+                                <div class="pbr-conversation-player">
+                                    <div class="conversation-header">
+                                        <div class="ai-avatar">
+                                            <span>🤖</span>
+                                        </div>
+                                        <div class="conversation-info">
+                                            <span class="conversation-title">AI Guide Speaking</span>
+                                            <span class="conversation-subtitle">Sagrada Família insights</span>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-waveform">
+                                        <div class="waveform-bars">
+                                            <span></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span></span><span></span><span></span>
+                                            <span></span><span></span><span></span><span></span><span></span>
+                                        </div>
+                                        <div class="waveform-progress">
+                                            <div class="progress-fill"></div>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-controls">
+                                        <button class="control-btn control-rewind">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M12.5 3L3 12l9.5 9v-6.5l9.5 6.5V3L12.5 9.5V3z" />
+                                            </svg>
+                                        </button>
+                                        <button class="control-btn control-play">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                                <rect x="6" y="4" width="4" height="16" rx="1" />
+                                                <rect x="14" y="4" width="4" height="16" rx="1" />
+                                            </svg>
+                                        </button>
+                                        <button class="control-btn control-forward">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M11.5 3v6.5L2 3v18l9.5-6.5V21l9.5-9-9.5-9z" />
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

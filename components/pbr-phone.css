@@ -690,3 +690,543 @@
         transform: scale(0.75);
     }
 }
+
+/* ===== Enhanced Screen Realism ===== */
+
+/* Screen glow effect */
+.pbr-phone-screen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+        /* Subtle scan lines */
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 2px,
+            rgba(0, 0, 0, 0.03) 4px
+        ),
+        /* Screen reflection */
+        linear-gradient(
+            125deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.03) 30%,
+            transparent 50%,
+            transparent 100%
+        );
+    pointer-events: none;
+    z-index: 100;
+    animation: screen-flicker 8s ease-in-out infinite;
+}
+
+@keyframes screen-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.98; }
+    52% { opacity: 1; }
+}
+
+/* Enhanced Status Bar */
+.pbr-app-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.pbr-app-status-bar .time {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.pbr-app-status-bar .status-icons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Enhanced Location Badge */
+.pbr-location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(6, 182, 212, 0.15) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    padding: 10px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.pbr-location-badge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    animation: location-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes location-shimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+/* ===== Mini Map ===== */
+.pbr-mini-map {
+    position: relative;
+    width: 100%;
+    height: 130px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 12px 0;
+    background: linear-gradient(145deg, #1a1f2e 0%, #0f1319 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 
+        inset 0 2px 8px rgba(0, 0, 0, 0.4),
+        0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.map-surface {
+    position: absolute;
+    inset: 0;
+    background: 
+        /* Water on the right (Mediterranean) */
+        linear-gradient(90deg, transparent 70%, rgba(6, 182, 212, 0.15) 100%);
+}
+
+.map-grid {
+    position: absolute;
+    inset: 0;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 20px,
+            rgba(255, 255, 255, 0.03) 20px,
+            rgba(255, 255, 255, 0.03) 21px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 20px,
+            rgba(255, 255, 255, 0.03) 20px,
+            rgba(255, 255, 255, 0.03) 21px
+        );
+}
+
+.map-streets {
+    position: absolute;
+    inset: 0;
+    background:
+        /* Main diagonal street (La Diagonal) */
+        linear-gradient(135deg, 
+            transparent 0%, transparent 35%,
+            rgba(255, 255, 255, 0.08) 35%, rgba(255, 255, 255, 0.08) 36%,
+            transparent 36%, transparent 100%
+        ),
+        /* Horizontal street (Gran Via) */
+        linear-gradient(0deg,
+            transparent 0%, transparent 60%,
+            rgba(255, 255, 255, 0.06) 60%, rgba(255, 255, 255, 0.06) 62%,
+            transparent 62%, transparent 100%
+        ),
+        /* Vertical street (Passeig de Gràcia) */
+        linear-gradient(90deg,
+            transparent 0%, transparent 40%,
+            rgba(255, 255, 255, 0.06) 40%, rgba(255, 255, 255, 0.06) 42%,
+            transparent 42%, transparent 100%
+        );
+}
+
+/* Map Markers */
+.map-marker {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.marker-pin {
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: marker-bounce 2s ease-in-out infinite;
+}
+
+@keyframes marker-bounce {
+    0%, 100% { transform: rotate(-45deg) translateY(0); }
+    50% { transform: rotate(-45deg) translateY(-3px); }
+}
+
+.marker-popup {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px) scale(0);
+    background: rgba(18, 18, 26, 0.95);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    padding: 6px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    font-size: 10px;
+    font-weight: 500;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+}
+
+.marker-popup::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(139, 92, 246, 0.4);
+}
+
+.popup-icon {
+    font-size: 11px;
+}
+
+/* Show popup on hover or cycle through */
+.map-marker:hover .marker-popup,
+.map-marker.active .marker-popup {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-8px) scale(1);
+}
+
+.map-marker:hover .marker-pin {
+    transform: rotate(-45deg) scale(1.2);
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.7);
+}
+
+/* Specific marker positions (Barcelona layout approximation) */
+.marker-sagrada {
+    top: 25%;
+    left: 60%;
+    animation-delay: 0s;
+}
+
+.marker-guell {
+    top: 15%;
+    left: 35%;
+    animation-delay: 0.3s;
+}
+
+.marker-rambla {
+    top: 65%;
+    left: 30%;
+    animation-delay: 0.6s;
+}
+
+.marker-casa {
+    top: 30%;
+    left: 25%;
+    animation-delay: 0.9s;
+}
+
+.marker-beach {
+    top: 75%;
+    left: 75%;
+    animation-delay: 1.2s;
+}
+
+/* Current Location Indicator */
+.map-current-location {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+}
+
+/* Google Maps-style heading cone */
+.current-heading {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    background: conic-gradient(
+        from -30deg,
+        transparent 0deg,
+        rgba(59, 130, 246, 0.3) 30deg,
+        rgba(59, 130, 246, 0.15) 60deg,
+        transparent 60deg
+    );
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.current-dot {
+    width: 12px;
+    height: 12px;
+    background: #3B82F6;
+    border-radius: 50%;
+    border: 2.5px solid #fff;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.6);
+    position: relative;
+    z-index: 2;
+}
+
+.current-pulse {
+    position: absolute;
+    inset: -8px;
+    border: 2px solid rgba(59, 130, 246, 0.5);
+    border-radius: 50%;
+    animation: current-pulse-anim 2s ease-out infinite;
+}
+
+@keyframes current-pulse-anim {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+/* Map Overlay (gradient fade) */
+.map-overlay {
+    position: absolute;
+    inset: 0;
+    background: 
+        linear-gradient(0deg, rgba(10, 10, 15, 0.6) 0%, transparent 30%),
+        linear-gradient(180deg, rgba(10, 10, 15, 0.3) 0%, transparent 20%);
+    pointer-events: none;
+}
+
+/* ===== Conversation Audio Visualizer ===== */
+.pbr-conversation-player {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 16px;
+    padding: 14px;
+    backdrop-filter: blur(10px);
+}
+
+.conversation-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.ai-avatar {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+    animation: avatar-pulse 3s ease-in-out infinite;
+}
+
+@keyframes avatar-pulse {
+    0%, 100% { box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4); }
+    50% { box-shadow: 0 4px 16px rgba(139, 92, 246, 0.6); }
+}
+
+.conversation-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.conversation-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.conversation-subtitle {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Conversation Waveform */
+.conversation-waveform {
+    margin-bottom: 12px;
+}
+
+.waveform-bars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    height: 32px;
+    margin-bottom: 8px;
+}
+
+.waveform-bars span {
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #8B5CF6 0%, #06B6D4 100%);
+    border-radius: 2px;
+    transform-origin: center;
+    animation: conversation-wave var(--wave-duration, 1.8s) ease-in-out infinite;
+}
+
+/* Slow, coordinated wave pattern - simulating natural speech */
+.waveform-bars span:nth-child(1) { --wave-duration: 2.0s; animation-delay: 0s; }
+.waveform-bars span:nth-child(2) { --wave-duration: 2.2s; animation-delay: 0.08s; }
+.waveform-bars span:nth-child(3) { --wave-duration: 1.8s; animation-delay: 0.16s; }
+.waveform-bars span:nth-child(4) { --wave-duration: 2.4s; animation-delay: 0.24s; }
+.waveform-bars span:nth-child(5) { --wave-duration: 2.0s; animation-delay: 0.32s; }
+.waveform-bars span:nth-child(6) { --wave-duration: 1.9s; animation-delay: 0.40s; }
+.waveform-bars span:nth-child(7) { --wave-duration: 2.3s; animation-delay: 0.48s; }
+.waveform-bars span:nth-child(8) { --wave-duration: 1.7s; animation-delay: 0.56s; }
+.waveform-bars span:nth-child(9) { --wave-duration: 2.1s; animation-delay: 0.64s; }
+.waveform-bars span:nth-child(10) { --wave-duration: 2.0s; animation-delay: 0.72s; }
+.waveform-bars span:nth-child(11) { --wave-duration: 2.2s; animation-delay: 0.80s; }
+.waveform-bars span:nth-child(12) { --wave-duration: 1.8s; animation-delay: 0.88s; }
+.waveform-bars span:nth-child(13) { --wave-duration: 2.4s; animation-delay: 0.96s; }
+.waveform-bars span:nth-child(14) { --wave-duration: 1.9s; animation-delay: 1.04s; }
+.waveform-bars span:nth-child(15) { --wave-duration: 2.1s; animation-delay: 1.12s; }
+.waveform-bars span:nth-child(16) { --wave-duration: 2.3s; animation-delay: 1.20s; }
+.waveform-bars span:nth-child(17) { --wave-duration: 1.7s; animation-delay: 1.28s; }
+.waveform-bars span:nth-child(18) { --wave-duration: 2.0s; animation-delay: 1.36s; }
+.waveform-bars span:nth-child(19) { --wave-duration: 2.2s; animation-delay: 1.44s; }
+.waveform-bars span:nth-child(20) { --wave-duration: 2.1s; animation-delay: 1.52s; }
+.waveform-bars span:nth-child(21) { --wave-duration: 1.9s; animation-delay: 1.60s; }
+.waveform-bars span:nth-child(22) { --wave-duration: 2.0s; animation-delay: 1.68s; }
+.waveform-bars span:nth-child(23) { --wave-duration: 2.3s; animation-delay: 1.76s; }
+.waveform-bars span:nth-child(24) { --wave-duration: 1.8s; animation-delay: 1.84s; }
+.waveform-bars span:nth-child(25) { --wave-duration: 2.1s; animation-delay: 1.92s; }
+
+@keyframes conversation-wave {
+    0%, 100% { 
+        transform: scaleY(0.2);
+        opacity: 0.6;
+    }
+    50% { 
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+/* Waveform Progress Bar */
+.waveform-progress {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.waveform-progress .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #8B5CF6, #06B6D4);
+    border-radius: 2px;
+    animation: progress-slide 12s linear infinite;
+}
+
+@keyframes progress-slide {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+/* Conversation Controls */
+.conversation-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.control-btn {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: rgba(139, 92, 246, 0.4);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.control-btn.control-play {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    border: none;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.control-btn.control-play:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+/* ===== Auto-cycling popup animation ===== */
+.marker-sagrada { animation: popup-cycle 15s ease-in-out infinite; animation-delay: 0s; }
+.marker-guell { animation: popup-cycle 15s ease-in-out infinite; animation-delay: 3s; }
+.marker-rambla { animation: popup-cycle 15s ease-in-out infinite; animation-delay: 6s; }
+.marker-casa { animation: popup-cycle 15s ease-in-out infinite; animation-delay: 9s; }
+.marker-beach { animation: popup-cycle 15s ease-in-out infinite; animation-delay: 12s; }
+
+@keyframes popup-cycle {
+    0%, 15% { z-index: 20; }
+    0%, 5% { --popup-visible: 1; }
+    5%, 100% { --popup-visible: 0; }
+}
+
+.marker-sagrada .marker-popup,
+.marker-guell .marker-popup,
+.marker-rambla .marker-popup,
+.marker-casa .marker-popup,
+.marker-beach .marker-popup {
+    animation: popup-show 15s ease-in-out infinite;
+}
+
+.marker-sagrada .marker-popup { animation-delay: 0s; }
+.marker-guell .marker-popup { animation-delay: 3s; }
+.marker-rambla .marker-popup { animation-delay: 6s; }
+.marker-casa .marker-popup { animation-delay: 9s; }
+.marker-beach .marker-popup { animation-delay: 12s; }
+
+@keyframes popup-show {
+    0%, 3% { 
+        opacity: 0; 
+        transform: translateX(-50%) translateY(-8px) scale(0.8);
+    }
+    5%, 18% { 
+        opacity: 1; 
+        transform: translateX(-50%) translateY(-8px) scale(1);
+    }
+    20%, 100% { 
+        opacity: 0; 
+        transform: translateX(-50%) translateY(-8px) scale(0.8);
+    }
+}
