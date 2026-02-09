@@ -1756,6 +1756,12 @@ img {
 }
 
 @media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        height: auto;
+        padding-top: 100px;
+    }
+
     .nav-links {
         display: none;
         position: absolute;
@@ -1823,6 +1829,27 @@ img {
     .phones-container {
         transform: scale(0.85);
     }
+    
+    .hero-visual {
+        display: block;
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin: var(--space-2xl) auto 0;
+    }
+    
+    .pbr-phone-container {
+        transform: scale(0.7);
+    }
+    
+    .scroll-indicator {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        margin-top: var(--space-3xl);
+    }
 }
 
 @media (max-width: 480px) {
@@ -1853,5 +1880,9 @@ img {
     
     .store-badges {
         flex-direction: column;
+    }
+    
+    .pbr-phone-container {
+        transform: scale(0.6);
     }
 }
