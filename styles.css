@@ -1935,3 +1935,201 @@ img {
         transform: scale(0.6);
     }
 }
+/* ===== Policy Page Styles ===== */
+.policy-page {
+    padding-top: 120px;
+}
+
+.policy-hero {
+    padding: var(--space-4xl) 0 var(--space-2xl);
+    text-align: center;
+}
+
+.policy-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--space-xl) var(--space-4xl);
+}
+
+.policy-content {
+    background: var(--color-bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xl);
+    padding: var(--space-3xl);
+    box-shadow: var(--shadow-card);
+}
+
+.policy-content h2 {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    margin: var(--space-2xl) 0 var(--space-md);
+    color: var(--color-text-primary);
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding-bottom: var(--space-xs);
+}
+
+.policy-content h3 {
+    font-size: 1.1rem;
+    margin: var(--space-xl) 0 var(--space-sm);
+    color: var(--color-accent-purple);
+}
+
+.policy-content p {
+    margin-bottom: var(--space-md);
+    color: var(--color-text-secondary);
+}
+
+.policy-content ul {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-xl);
+    list-style: disc;
+}
+
+.policy-content li {
+    margin-bottom: var(--space-xs);
+    color: var(--color-text-secondary);
+}
+
+.policy-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-lg) 0;
+    font-size: 0.9rem;
+}
+
+.policy-content th, .policy-content td {
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+}
+
+.policy-content th {
+    background: var(--palette-primary-subtle);
+    color: var(--palette-primary);
+    font-weight: 600;
+}
+
+.policy-content .last-updated {
+    font-size: 0.85rem;
+    color: var(--color-text-tertiary);
+    margin-top: var(--space-md);
+    font-style: italic;
+}
+
+.policy-content hr {
+    border: none;
+    border-top: 1px solid var(--color-border-subtle);
+    margin: var(--space-2xl) 0;
+}
+
+.policy-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--palette-primary-subtle);
+    border-radius: var(--radius-md);
+}
+
+.policy-meta-grid p {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+.last-updated-footer {
+    font-size: 0.85rem;
+    color: var(--color-text-tertiary);
+    margin-top: var(--space-xl);
+    text-align: center;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin: var(--space-lg) 0;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-subtle);
+}
+
+.policy-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.endpoint-details {
+    margin: var(--space-lg) 0;
+    padding: var(--space-lg);
+    background: rgba(109, 40, 217, 0.03);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--palette-primary);
+}
+
+.endpoint-details p {
+    margin-bottom: var(--space-md);
+}
+
+.endpoint-details p:last-child {
+    margin-bottom: 0;
+}
+
+.code-block {
+    background: #1a1b26;
+    color: #a9b1d6;
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    margin: var(--space-md) 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin: 0;
+}
+
+.rights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+    margin: var(--space-2xl) 0;
+}
+
+.rights-column {
+    background: rgba(109, 40, 217, 0.02);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-subtle);
+}
+
+.rights-column h3 {
+    margin-top: 0 !important;
+    margin-bottom: var(--space-md) !important;
+    color: var(--palette-primary) !important;
+}
+
+.contact-details {
+    margin: var(--space-md) 0;
+    padding: var(--space-md);
+    background: var(--palette-primary-subtle);
+    border-radius: var(--radius-md);
+}
+
+.contact-details p {
+    margin-bottom: var(--space-xs);
+}
+
+@media (max-width: 768px) {
+    .policy-content {
+        padding: var(--space-xl);
+    }
+    
+    .policy-content table {
+        display: block;
+        overflow-x: auto;
+    }
+}
