@@ -168,7 +168,7 @@ function initMobileMenu() {
  */
 function initScrollAnimations() {
     const animatedElements = document.querySelectorAll(
-        '.feature-card, .step, .testimonial-card, .experience-item, .requirement-card'
+        '.feature-card, .step, .testimonial-card, .experience-item, .requirement-card, .tutorial-chapter, .chapter-info, .chapter-visual, .summary-card'
     );
 
     if (animatedElements.length === 0) return;
@@ -257,7 +257,7 @@ function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            if (href === '#') return;
+            if (href === '#' || href === '#gallery') return;
 
             e.preventDefault();
             const target = document.querySelector(href);
@@ -368,3 +368,67 @@ setTimeout(initAudioWaves, 1000);
 // Console Easter Egg
 console.log('%c✈️ Aimdal', 'font-size: 24px; font-weight: bold; color: #8B5CF6;');
 console.log('%cExplore the world with AI', 'font-size: 14px; color: #06B6D4;');
+
+/**
+ * Photo Gallery - Hash-based navigation and interactions
+ */
+function initGallery() {
+    const gallery = document.getElementById('gallery');
+    const closeBtn = document.getElementById('close-gallery-btn');
+    const logo = document.querySelector('.nav-logo');
+    
+    if (!gallery || !closeBtn) return;
+
+    // Toggle gallery based on hash
+    const checkHash = () => {
+        if (window.location.hash === '#gallery') {
+            gallery.classList.add('visible');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        } else {
+            gallery.classList.remove('visible');
+            document.body.style.overflow = '';
+        }
+    };
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', checkHash);
+    
+    // Initial check
+    checkHash();
+
+    // Close button logic
+    closeBtn.addEventListener('click', () => {
+        // Clear hash to hide gallery
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+        checkHash();
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && gallery.classList.contains('visible')) {
+            closeBtn.click();
+        }
+    });
+
+    // Logo Easter Egg (still works)
+    let clickCount = 0;
+    let lastClickTime = 0;
+    
+    if (logo) {
+        logo.addEventListener('click', (e) => {
+            const currentTime = new Date().getTime();
+            if (currentTime - lastClickTime > 1000) clickCount = 0;
+            
+            clickCount++;
+            lastClickTime = currentTime;
+            
+            if (clickCount >= 5) {
+                e.preventDefault();
+                window.location.hash = 'gallery';
+                clickCount = 0;
+            }
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initGallery);
