@@ -294,15 +294,25 @@ function initAudioWaves() {
 /**
  * Parallax Effect for Hero Section
  */
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
+(() => {
     const hero = document.querySelector('.hero');
+    let ticking = false;
 
-    if (hero && scrolled < window.innerHeight) {
-        const rate = scrolled * 0.3;
-        hero.style.backgroundPositionY = rate + 'px';
-    }
-});
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrolled = window.pageYOffset;
+
+                if (hero && scrolled < window.innerHeight) {
+                    const rate = scrolled * 0.3;
+                    hero.style.backgroundPositionY = rate + 'px';
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+})();
 
 /**
  * Mouse Move Effect for Glow
@@ -337,26 +347,6 @@ document.addEventListener('mousemove', (e) => {
         glowTicking = true;
     }
 });
-
-/**
- * Lazy Loading for Images
- */
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-
-    images.forEach(img => imageObserver.observe(img));
-}
 
 /**
  * Form Handling (for future newsletter/contact forms)
