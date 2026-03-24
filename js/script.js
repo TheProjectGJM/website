@@ -146,13 +146,16 @@ function initParticles() {
     if (!container) return;
 
     const particleCount = 60;
+    const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < particleCount; i++) {
-        createParticle(container);
+        createParticle(fragment);
     }
+
+    container.appendChild(fragment);
 }
 
-function createParticle(container) {
+function createParticle(parent) {
     const particle = document.createElement('div');
 
     // Shape types with their weights (more dots, fewer complex shapes)
@@ -241,7 +244,7 @@ function createParticle(container) {
     particle.style.animationDuration = (Math.random() * 25 + 12) + 's';
     particle.style.animationDelay = (Math.random() * 8) + 's';
 
-    container.appendChild(particle);
+    parent.appendChild(particle);
 }
 
 /**
