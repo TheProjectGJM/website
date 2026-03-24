@@ -294,50 +294,59 @@ function initAudioWaves() {
 /**
  * Parallax Effect for Hero Section
  */
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
+(() => {
     const hero = document.querySelector('.hero');
+    let ticking = false;
 
-    if (hero && scrolled < window.innerHeight) {
-        const rate = scrolled * 0.3;
-        hero.style.backgroundPositionY = rate + 'px';
-    }
-});
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrolled = window.pageYOffset;
+
+                if (hero && scrolled < window.innerHeight) {
+                    const rate = scrolled * 0.3;
+                    hero.style.backgroundPositionY = rate + 'px';
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+})();
 
 /**
  * Mouse Move Effect for Glow
  */
-document.addEventListener('mousemove', (e) => {
-    const glowElements = document.querySelectorAll('.phone-glow, .phones-glow');
+let glowElements = null;
+let glowTicking = false;
+let mouseX = 0;
+let mouseY = 0;
+
+function updateGlowElements() {
+    if (!glowElements) {
+        glowElements = document.querySelectorAll('.phone-glow, .phones-glow, .pbr-phone-glow');
+    }
 
     glowElements.forEach(glow => {
         const rect = glow.parentElement.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
+        const x = mouseX - rect.left - rect.width / 2;
+        const y = mouseY - rect.top - rect.height / 2;
 
         glow.style.transform = `translate(calc(-50% + ${x * 0.05}px), calc(-50% + ${y * 0.05}px))`;
     });
-});
 
-/**
- * Lazy Loading for Images
- */
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-
-    images.forEach(img => imageObserver.observe(img));
+    glowTicking = false;
 }
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!glowTicking) {
+        requestAnimationFrame(updateGlowElements);
+        glowTicking = true;
+    }
+});
 
 // Initialize audio waves after DOM load
 setTimeout(initAudioWaves, 1000);
