@@ -307,16 +307,35 @@ window.addEventListener('scroll', () => {
 /**
  * Mouse Move Effect for Glow
  */
-document.addEventListener('mousemove', (e) => {
-    const glowElements = document.querySelectorAll('.phone-glow, .phones-glow');
+let glowElements = null;
+let glowTicking = false;
+let mouseX = 0;
+let mouseY = 0;
+
+function updateGlowElements() {
+    if (!glowElements) {
+        glowElements = document.querySelectorAll('.phone-glow, .phones-glow, .pbr-phone-glow');
+    }
 
     glowElements.forEach(glow => {
         const rect = glow.parentElement.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
+        const x = mouseX - rect.left - rect.width / 2;
+        const y = mouseY - rect.top - rect.height / 2;
 
         glow.style.transform = `translate(calc(-50% + ${x * 0.05}px), calc(-50% + ${y * 0.05}px))`;
     });
+
+    glowTicking = false;
+}
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!glowTicking) {
+        requestAnimationFrame(updateGlowElements);
+        glowTicking = true;
+    }
 });
 
 /**
