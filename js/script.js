@@ -4,13 +4,139 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initCustomCursor();
+    initScrollProgress();
     initParticles();
     initNavbar();
     initMobileMenu();
     initScrollAnimations();
     initCounterAnimations();
     initSmoothScroll();
+    init3DTilt();
 });
+
+/**
+ * 3D Tilt Effect for Cards
+ */
+function init3DTilt() {
+    // Only initialize on non-touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const cards = document.querySelectorAll('.feature-card, .step, .testimonial-card');
+
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Calculate rotation based on cursor position relative to card center
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg rotation
+            const rotateY = ((x - centerX) / centerX) * 10;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            card.style.transition = 'none';
+            card.style.zIndex = '10';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+            card.style.zIndex = '1';
+        });
+
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = 'none';
+        });
+    });
+}
+
+/**
+ * Custom Cursor Implementation
+ */
+function initCustomCursor() {
+    // Only initialize on non-touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+
+    const cursorFollower = document.createElement('div');
+    cursorFollower.className = 'custom-cursor-follower';
+
+    document.body.appendChild(cursor);
+    document.body.appendChild(cursorFollower);
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        // Update main cursor instantly
+        cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+    });
+
+    // We'll update the follower position via requestAnimationFrame
+    let followerX = mouseX;
+    let followerY = mouseY;
+
+    function updateFollower() {
+        // Simple easing
+        followerX += (mouseX - followerX) * 0.15;
+        followerY += (mouseY - followerY) * 0.15;
+
+        cursorFollower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0)`;
+        requestAnimationFrame(updateFollower);
+    }
+
+    updateFollower();
+
+    // Add hover effect for clickable elements
+    const updateHoverState = () => {
+        const clickables = document.querySelectorAll('a, button, .feature-card, .step, .map-marker, .pbr-listen-btn, .testimonial-card');
+
+        clickables.forEach(el => {
+            // Prevent duplicate listeners by marking the element
+            if (el.dataset.cursorTracked) return;
+            el.dataset.cursorTracked = "true";
+
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('cursor-hover');
+                cursorFollower.classList.add('cursor-hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-hover');
+                cursorFollower.classList.remove('cursor-hover');
+            });
+        });
+    };
+
+    // Call once, and potentially call again if DOM changes drastically
+    updateHoverState();
+}
+
+/**
+ * Scroll Progress Bar
+ */
+function initScrollProgress() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress-bar';
+    document.body.appendChild(progressBar);
+
+    const updateScroll = () => {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = `${scrolled}%`;
+    };
+
+    window.addEventListener('scroll', updateScroll);
+    updateScroll(); // Initial call
+}
 
 /**
  * Particle Background System - Enhanced with diverse shapes
@@ -171,7 +297,9 @@ function initScrollAnimations() {
         '.feature-card, .step, .testimonial-card, .experience-item, .requirement-card, .tutorial-chapter, .chapter-info, .chapter-visual, .summary-card'
     );
 
-    if (animatedElements.length === 0) return;
+    const progressFills = document.querySelectorAll('.feature-card .progress-fill');
+
+    if (animatedElements.length === 0 && progressFills.length === 0) return;
 
     const observerOptions = {
         threshold: 0.1,
@@ -181,8 +309,12 @@ function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                if (entry.target.classList.contains('progress-fill')) {
+                    entry.target.classList.add('animate-progress');
+                } else {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
                 observer.unobserve(entry.target);
             }
         });
@@ -194,6 +326,8 @@ function initScrollAnimations() {
         el.style.transition = `opacity 0.35s ease ${index * 0.05}s, transform 0.35s ease ${index * 0.05}s`;
         observer.observe(el);
     });
+
+    progressFills.forEach(el => observer.observe(el));
 }
 
 /**
