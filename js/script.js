@@ -348,29 +348,6 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
-/**
- * Form Handling (for future newsletter/contact forms)
- */
-function handleFormSubmit(formId, callback) {
-    const form = document.getElementById(formId);
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
-
-        try {
-            // Add your form submission logic here
-            if (callback) callback(data);
-            form.reset();
-        } catch (error) {
-            console.error('Form submission error:', error);
-        }
-    });
-}
-
 // Initialize audio waves after DOM load
 setTimeout(initAudioWaves, 1000);
 
