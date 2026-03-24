@@ -294,15 +294,25 @@ function initAudioWaves() {
 /**
  * Parallax Effect for Hero Section
  */
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
+(() => {
     const hero = document.querySelector('.hero');
+    let ticking = false;
 
-    if (hero && scrolled < window.innerHeight) {
-        const rate = scrolled * 0.3;
-        hero.style.backgroundPositionY = rate + 'px';
-    }
-});
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrolled = window.pageYOffset;
+
+                if (hero && scrolled < window.innerHeight) {
+                    const rate = scrolled * 0.3;
+                    hero.style.backgroundPositionY = rate + 'px';
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+})();
 
 /**
  * Mouse Move Effect for Glow
