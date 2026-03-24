@@ -4,13 +4,73 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initScrollProgress();
     initParticles();
     initNavbar();
     initMobileMenu();
     initScrollAnimations();
     initCounterAnimations();
     initSmoothScroll();
+    init3DTilt();
+    initCustomCursor();
 });
+
+/**
+ * 3D Tilt Effect for Cards
+ */
+function init3DTilt() {
+    // Only initialize on non-touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const cards = document.querySelectorAll('.feature-card, .step, .testimonial-card');
+
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Calculate rotation based on cursor position relative to card center
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg rotation
+            const rotateY = ((x - centerX) / centerX) * 10;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            card.style.transition = 'none';
+            card.style.zIndex = '10';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+            card.style.zIndex = '1';
+        });
+
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = 'none';
+        });
+    });
+}
+
+/**
+ * Scroll Progress Bar
+ */
+function initScrollProgress() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress-bar';
+    document.body.appendChild(progressBar);
+
+    const updateScroll = () => {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = `${scrolled}%`;
+    };
+
+    window.addEventListener('scroll', updateScroll);
+    updateScroll(); // Initial call
+}
 
 /**
  * Particle Background System - Enhanced with diverse shapes
@@ -171,7 +231,9 @@ function initScrollAnimations() {
         '.feature-card, .step, .testimonial-card, .experience-item, .requirement-card, .tutorial-chapter, .chapter-info, .chapter-visual, .summary-card'
     );
 
-    if (animatedElements.length === 0) return;
+    const progressFills = document.querySelectorAll('.feature-card .progress-fill');
+
+    if (animatedElements.length === 0 && progressFills.length === 0) return;
 
     const observerOptions = {
         threshold: 0.1,
@@ -181,8 +243,12 @@ function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                if (entry.target.classList.contains('progress-fill')) {
+                    entry.target.classList.add('animate-progress');
+                } else {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
                 observer.unobserve(entry.target);
             }
         });
@@ -194,6 +260,8 @@ function initScrollAnimations() {
         el.style.transition = `opacity 0.35s ease ${index * 0.05}s, transform 0.35s ease ${index * 0.05}s`;
         observer.observe(el);
     });
+
+    progressFills.forEach(el => observer.observe(el));
 }
 
 /**
@@ -369,3 +437,30 @@ setTimeout(initAudioWaves, 1000);
 console.log('%c✈️ Aimdal', 'font-size: 24px; font-weight: bold; color: #8B5CF6;');
 console.log('%cExplore the world with AI', 'font-size: 14px; color: #06B6D4;');
 
+/**
+ * Custom Cursor Implementation
+ */
+function initCustomCursor() {
+    // Only apply on non-touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    const interactiveElements = document.querySelectorAll('a, button, .feature-card, .step, .testimonial-card');
+
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.add('custom-cursor-hover');
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('custom-cursor-hover');
+        });
+    });
+}
