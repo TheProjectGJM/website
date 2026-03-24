@@ -176,7 +176,49 @@ img {
     display: block;
 }
 
-/* ===== Progress Bar ===== */
+/* ===== Custom Cursor & Progress Bar ===== */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-accent-purple);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate3d(-50%, -50%, 0);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    mix-blend-mode: difference;
+}
+
+.custom-cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid var(--color-accent-cyan);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate3d(-50%, -50%, 0);
+    transition: width 0.2s, height 0.2s, border-color 0.2s;
+}
+
+.custom-cursor.cursor-hover {
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-accent-pink);
+}
+
+.custom-cursor-follower.cursor-hover {
+    width: 48px;
+    height: 48px;
+    border-color: var(--color-accent-pink);
+    background-color: rgba(190, 24, 93, 0.1);
+}
+
 .scroll-progress-bar {
     position: fixed;
     top: 0;

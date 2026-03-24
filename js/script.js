@@ -4,6 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initCustomCursor();
     initScrollProgress();
     initParticles();
     initNavbar();
@@ -12,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initCounterAnimations();
     initSmoothScroll();
     init3DTilt();
-    initCustomCursor();
 });
 
 /**
@@ -55,6 +55,72 @@ function init3DTilt() {
 }
 
 /**
+ * Custom Cursor Implementation
+ */
+function initCustomCursor() {
+    // Only initialize on non-touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+
+    const cursorFollower = document.createElement('div');
+    cursorFollower.className = 'custom-cursor-follower';
+
+    document.body.appendChild(cursor);
+    document.body.appendChild(cursorFollower);
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        // Update main cursor instantly
+        cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+    });
+
+    // We'll update the follower position via requestAnimationFrame
+    let followerX = mouseX;
+    let followerY = mouseY;
+
+    function updateFollower() {
+        // Simple easing
+        followerX += (mouseX - followerX) * 0.15;
+        followerY += (mouseY - followerY) * 0.15;
+
+        cursorFollower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0)`;
+        requestAnimationFrame(updateFollower);
+    }
+
+    updateFollower();
+
+    // Add hover effect for clickable elements
+    const updateHoverState = () => {
+        const clickables = document.querySelectorAll('a, button, .feature-card, .step, .map-marker, .pbr-listen-btn, .testimonial-card');
+
+        clickables.forEach(el => {
+            // Prevent duplicate listeners by marking the element
+            if (el.dataset.cursorTracked) return;
+            el.dataset.cursorTracked = "true";
+
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('cursor-hover');
+                cursorFollower.classList.add('cursor-hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-hover');
+                cursorFollower.classList.remove('cursor-hover');
+            });
+        });
+    };
+
+    // Call once, and potentially call again if DOM changes drastically
+    updateHoverState();
+}
+
+/**
  * Scroll Progress Bar
  */
 function initScrollProgress() {
@@ -80,13 +146,16 @@ function initParticles() {
     if (!container) return;
 
     const particleCount = 60;
+    const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < particleCount; i++) {
-        createParticle(container);
+        createParticle(fragment);
     }
+
+    container.appendChild(fragment);
 }
 
-function createParticle(container) {
+function createParticle(parent) {
     const particle = document.createElement('div');
 
     // Shape types with their weights (more dots, fewer complex shapes)
@@ -175,7 +244,7 @@ function createParticle(container) {
     particle.style.animationDuration = (Math.random() * 25 + 12) + 's';
     particle.style.animationDelay = (Math.random() * 8) + 's';
 
-    container.appendChild(particle);
+    parent.appendChild(particle);
 }
 
 /**
@@ -362,73 +431,59 @@ function initAudioWaves() {
 /**
  * Parallax Effect for Hero Section
  */
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
+(() => {
     const hero = document.querySelector('.hero');
+    let ticking = false;
 
-    if (hero && scrolled < window.innerHeight) {
-        const rate = scrolled * 0.3;
-        hero.style.backgroundPositionY = rate + 'px';
-    }
-});
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrolled = window.pageYOffset;
+
+                if (hero && scrolled < window.innerHeight) {
+                    const rate = scrolled * 0.3;
+                    hero.style.backgroundPositionY = rate + 'px';
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+})();
 
 /**
  * Mouse Move Effect for Glow
  */
-document.addEventListener('mousemove', (e) => {
-    const glowElements = document.querySelectorAll('.phone-glow, .phones-glow');
+let glowElements = null;
+let glowTicking = false;
+let mouseX = 0;
+let mouseY = 0;
+
+function updateGlowElements() {
+    if (!glowElements) {
+        glowElements = document.querySelectorAll('.phone-glow, .phones-glow, .pbr-phone-glow');
+    }
 
     glowElements.forEach(glow => {
         const rect = glow.parentElement.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
+        const x = mouseX - rect.left - rect.width / 2;
+        const y = mouseY - rect.top - rect.height / 2;
 
         glow.style.transform = `translate(calc(-50% + ${x * 0.05}px), calc(-50% + ${y * 0.05}px))`;
     });
+
+    glowTicking = false;
+}
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!glowTicking) {
+        requestAnimationFrame(updateGlowElements);
+        glowTicking = true;
+    }
 });
-
-/**
- * Lazy Loading for Images
- */
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-
-    images.forEach(img => imageObserver.observe(img));
-}
-
-/**
- * Form Handling (for future newsletter/contact forms)
- */
-function handleFormSubmit(formId, callback) {
-    const form = document.getElementById(formId);
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
-
-        try {
-            // Add your form submission logic here
-            if (callback) callback(data);
-            form.reset();
-        } catch (error) {
-            console.error('Form submission error:', error);
-        }
-    });
-}
 
 // Initialize audio waves after DOM load
 setTimeout(initAudioWaves, 1000);
