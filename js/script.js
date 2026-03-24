@@ -492,3 +492,30 @@ setTimeout(initAudioWaves, 1000);
 console.log('%c✈️ Aimdal', 'font-size: 24px; font-weight: bold; color: #8B5CF6;');
 console.log('%cExplore the world with AI', 'font-size: 14px; color: #06B6D4;');
 
+/**
+ * Custom Cursor Implementation
+ */
+function initCustomCursor() {
+    // Only apply on non-touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    const interactiveElements = document.querySelectorAll('a, button, .feature-card, .step, .testimonial-card');
+
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.add('custom-cursor-hover');
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('custom-cursor-hover');
+        });
+    });
+}

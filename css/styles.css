@@ -103,6 +103,42 @@
     --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
+/* Custom Cursor */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+
+  a, button, .feature-card, .step, .testimonial-card {
+    cursor: none;
+  }
+
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    transition: width 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+                height 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+                background-color 0.2s cubic-bezier(0.25, 1, 0.5, 1),
+                border-color 0.2s ease;
+    mix-blend-mode: difference;
+  }
+
+  .custom-cursor.custom-cursor-hover {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
 /* Reset & Base Styles */
 *, *::before, *::after {
     margin: 0;
