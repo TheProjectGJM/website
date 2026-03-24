@@ -140,6 +140,60 @@ img {
     display: block;
 }
 
+/* ===== Custom Cursor & Progress Bar ===== */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-accent-purple);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate3d(-50%, -50%, 0);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    mix-blend-mode: difference;
+}
+
+.custom-cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid var(--color-accent-cyan);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate3d(-50%, -50%, 0);
+    transition: width 0.2s, height 0.2s, border-color 0.2s;
+}
+
+.custom-cursor.cursor-hover {
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-accent-pink);
+}
+
+.custom-cursor-follower.cursor-hover {
+    width: 48px;
+    height: 48px;
+    border-color: var(--color-accent-pink);
+    background-color: rgba(190, 24, 93, 0.1);
+}
+
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    z-index: 10000;
+    width: 0%;
+    transition: width 0.1s;
+}
+
 /* ===== Particles Background ===== */
 .particles-bg {
     position: fixed;
@@ -932,10 +986,15 @@ img {
 
 .progress-fill {
     height: 100%;
-    width: 75%;
+    width: 0%;
     background: var(--gradient-primary);
     border-radius: var(--radius-full);
-    animation: progressPulse 2s infinite;
+    transition: width 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.progress-fill.animate-progress {
+    width: 75%;
+    animation: progressPulse 2s infinite 1.5s backwards;
 }
 
 @keyframes progressPulse {
@@ -1802,6 +1861,12 @@ img {
 }
 
 /* ===== Responsive Design ===== */
+@media (min-width: 1024px) {
+    .step-connector {
+        display: block;
+    }
+}
+
 @media (min-width: 1200px) {
     .hero-visual {
         display: block;
@@ -1819,6 +1884,14 @@ img {
     
     .hero-stats {
         justify-content: flex-start;
+    }
+}
+
+@media (max-width: 1199px) {
+    .hero-visual {
+        display: block;
+        transform: scale(0.85);
+        transform-origin: right center;
     }
 }
 
@@ -1889,7 +1962,11 @@ img {
     }
 
     .nav-links {
-        display: none;
+        display: flex;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
         position: absolute;
         top: 100%;
         left: 0;
@@ -1903,7 +1980,9 @@ img {
     }
     
     .nav-links.active {
-        display: flex;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
     }
     
     .mobile-menu-btn {
