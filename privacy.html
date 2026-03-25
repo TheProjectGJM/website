@@ -50,7 +50,7 @@
         <div class="section-container">
             <span class="section-tag">Legal</span>
             <h1 class="section-title">Privacy <span class="gradient-text">Policy</span></h1>
-            <p class="last-updated">Last Updated: March 25, 2026</p>
+            <p class="last-updated">Last Updated: March 26, 2026</p>
         </div>
     </header>
 
@@ -138,20 +138,66 @@
                 <p><strong>Legal Basis (EU):</strong> Art. 6(1)(b) GDPR – performance of a contract; Art. 6(1)(a) GDPR –
                     consent (where obtained explicitly).</p>
 
-                <h3>3.3 PRECISE LOCATION DATA</h3>
+                <h3>3.3 LOCATION DATA</h3>
+
+                <h4>Precise Location (GPS)</h4>
                 <ul>
                     <li>GPS latitude and longitude, updated in real time during active sessions.</li>
-                    <li>Location timestamps sent to the server every ~10 seconds while the Live AI audio feature is
-                        active.</li>
+                    <li>Location coordinates sent to the server approximately every 10 seconds while the Live AI audio
+                        feature is active.</li>
+                    <li>Location is collected only while the App is in the foreground and an active session is running.
+                        We do not collect location in the background.</li>
                 </ul>
-                <p><strong>Purpose:</strong> To provide location-aware AI responses, display relevant map markers, plan
-                    trips, and surface nearby points of interest.</p>
-                <p><strong>Legal Basis (EU):</strong> Art. 6(1)(a) GDPR – explicit consent via OS permission prompt.
-                    Users may revoke this permission at any time in device settings.</p>
-                <p><strong>US Note:</strong> Location data is considered sensitive under several state laws (see Section
-                    10). We do not sell precise location data.</p>
-                <p><strong>Canada Note:</strong> Location data is collected only with meaningful consent and is not used
-                    for profiling beyond the stated purpose.</p>
+
+                <h4>Approximate Location (IP Address)</h4>
+                <ul>
+                    <li>Your IP address — collected on every server request — may be used to derive an approximate
+                        geographic location (city or region level) when precise GPS coordinates are unavailable or have
+                        not yet been granted. This approximation is not stored beyond the request lifecycle.</li>
+                </ul>
+
+                <h4>Supplementary Location Signals</h4>
+                <ul>
+                    <li>On supported devices, the App or the underlying platform (iOS / Android) may use nearby Wi-Fi
+                        access points and mobile cell tower signals to supplement or verify GPS accuracy. This
+                        information is handled by the device operating system and is not transmitted to our servers
+                        independently of GPS coordinates.</li>
+                </ul>
+
+                <h4>Device Motion Sensors</h4>
+                <ul>
+                    <li>Device sensors including accelerometer and gyroscope data may be accessed by the App to
+                        determine movement direction and walking speed during active navigation sessions (e.g., the
+                        walking-route guidance feature). This sensor data is used on-device to improve navigation
+                        context and is not transmitted to or stored on our servers.</li>
+                </ul>
+
+                <p><strong>Purpose:</strong> To centre maps on your position, provide location-aware AI responses,
+                    display relevant map markers and points of interest, deliver walking-route navigation, and plan
+                    trips. Location context is forwarded to Google Gemini (AI inference) and Google Maps Platform
+                    (geocoding, directions, place search) as described in Section 5.</p>
+                <p><strong>Legal Basis (EU):</strong> Art. 6(1)(a) GDPR – explicit consent obtained via the OS
+                    permission prompt. Users may revoke this permission at any time in device settings, which will
+                    disable location-dependent features.</p>
+                <p><strong>US Note:</strong> Precise geolocation data is considered sensitive personal information under
+                    several US state laws including CCPA/CPRA (California), VCDPA (Virginia), CPA (Colorado), and
+                    others (see Section 10). We do not sell precise location data.</p>
+                <p><strong>Canada Note:</strong> Location data is collected only with meaningful prior consent and is
+                    not used for profiling or any purpose beyond those stated here.</p>
+
+                <h4>Location Data User Controls</h4>
+                <ul>
+                    <li><strong>Revoke at any time:</strong> You can withdraw location permission via iOS Settings →
+                        Privacy &amp; Security → Location Services → Aimdal, or Android Settings → Apps → Aimdal →
+                        Permissions → Location. Revoking permission disables map-centring and AI location context but
+                        does not affect other App features.</li>
+                    <li><strong>Session-scoped only:</strong> Location coordinates are held in server memory only for
+                        the duration of an active session and are purged immediately on disconnect. They are never
+                        written to a database or log file on our side.</li>
+                    <li><strong>Deletion requests:</strong> Because location data is never persisted by us, there is
+                        no location history to delete. If you believe your location data has been retained in error,
+                        contact info@aimdal.com.</li>
+                </ul>
 
                 <h3>3.4 AUDIO DATA (MICROPHONE)</h3>
                 <ul>
@@ -217,7 +263,17 @@
                 <ul>
                     <li><strong>Directly from you:</strong> account registration, questionnaire, in-app inputs, voice
                         sessions.</li>
-                    <li><strong>Automatically:</strong> location services, device sensors, app analytics.</li>
+                    <li><strong>Automatically from your device:</strong>
+                        <ul>
+                            <li>GPS chip — provides precise latitude / longitude coordinates during active sessions.</li>
+                            <li>IP address — logged on every server request; may indicate approximate location.</li>
+                            <li>Wi-Fi access points and cell towers — used by the device OS to supplement GPS accuracy;
+                                not independently transmitted to our servers.</li>
+                            <li>Accelerometer and gyroscope — accessed on-device for walking navigation; not transmitted
+                                to our servers.</li>
+                            <li>App analytics SDKs (Firebase, RevenueCat) — collect aggregate usage and crash data.</li>
+                        </ul>
+                    </li>
                     <li><strong>From third parties:</strong> Google Sign-In (Google LLC), Firebase (Google LLC),
                         RevenueCat Inc., Apple and Google Play billing systems.</li>
                 </ul>
@@ -529,9 +585,11 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Location</td>
+                                <td>Location (Precise — GPS)</td>
                                 <td>On first use of map / AI feature</td>
-                                <td>Display nearby places, send to AI</td>
+                                <td>Centre map on your position; send coordinates to AI and Google Maps Platform for
+                                    place search, geocoding, and walking navigation. Collected foreground-only during
+                                    active sessions.</td>
                             </tr>
                             <tr>
                                 <td>Microphone</td>
@@ -795,7 +853,7 @@
             </section>
 
             <hr>
-            <p class="last-updated-footer">END OF PRIVACY POLICY<br>Last Updated: February 22, 2026</p>
+            <p class="last-updated-footer">END OF PRIVACY POLICY<br>Last Updated: March 26, 2026</p>
         </article>
     </main>
 
