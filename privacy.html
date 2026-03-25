@@ -50,7 +50,7 @@
         <div class="section-container">
             <span class="section-tag">Legal</span>
             <h1 class="section-title">Privacy <span class="gradient-text">Policy</span></h1>
-            <p class="last-updated">Last Updated: February 22, 2026</p>
+            <p class="last-updated">Last Updated: March 25, 2026</p>
         </div>
     </header>
 
@@ -59,7 +59,8 @@
             <section class="policy-intro">
                 <div class="policy-meta-grid">
                     <p><strong>Application Name:</strong> Aimdal</p>
-                    <p><strong>Legal Entity Name:</strong> Aimdal</p>
+                    <p><strong>Legal Entity Name:</strong> Aimdal (yet to be determined)</p>
+                    <p><strong>Registered Address:</strong>  Girona, Spain</p>
                     <p><strong>Contact Email:</strong> info@aimdal.com</p>
                     <p><strong>Effective Date:</strong> March 1, 2026</p>
                 </div>
@@ -77,13 +78,14 @@
             <section id="section-1">
                 <h2>1. WHO WE ARE AND HOW TO CONTACT US</h2>
                 <p><strong>Data Controller (EU/EEA users):</strong><br>
-                    info@aimdal.com</p>
+                    Aimdal [legal form] — [Registered address, Girona, Spain]<br>
+                    Email: info@aimdal.com</p>
 
-                <p><strong>EU Representative (if applicable):</strong><br>
-                    info@aimdal.com</p>
+                <p><strong>EU Representative (Art. 27 GDPR):</strong><br>
+                    Not required. Aimdal is established within the European Union (Spain) and is therefore directly subject to GDPR. No Art. 27 representative has been designated.</p>
 
-                <p><strong>Data Protection Officer (DPO) (if applicable):</strong><br>
-                    info@aimdal.com</p>
+                <p><strong>Data Protection Officer (DPO):</strong><br>
+                    A formal DPO has not been appointed, as our processing activities do not meet the mandatory thresholds under Art. 37 GDPR (large-scale systematic monitoring or large-scale processing of special category data). Privacy-related inquiries should be directed to: info@aimdal.com</p>
 
                 <p><strong>Canadian Privacy Officer:</strong><br>
                     info@aimdal.com</p>
@@ -313,6 +315,12 @@
                                 <td>Backend API hosting and container orchestration</td>
                                 <td>All data in transit, access logs</td>
                                 <td>USA / EU</td>
+                            </tr>
+                            <tr>
+                                <td>Slack Technologies (Salesforce Inc.)</td>
+                                <td>Internal feedback routing — user-submitted comments forwarded via /comment endpoint</td>
+                                <td>Sender identifier, comment text, timestamp</td>
+                                <td>USA (+ EU SCC)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -654,8 +662,9 @@
                     <p><strong>/mystream (AssemblyAI STT + Gemini LLM + ElevenLabs/gTTS TTS)</strong></p>
                     <ul>
                         <li>Raw PCM audio is streamed in real time to AssemblyAI for speech-to-text transcription.
-                            AssemblyAI processes audio under its own privacy policy and, by agreement, does not retain
-                            audio beyond the transcription session.</li>
+                            AssemblyAI processes audio under its own privacy policy and under a Data Processing
+                            Agreement (DPA) with us, pursuant to which it does not retain audio beyond the
+                            transcription session.</li>
                         <li>The resulting transcript text is forwarded to Google Gemini for LLM inference. The AI
                             response text is then converted to speech via ElevenLabs, Kokoro-82M (via DeepInfra), or
                             gTTS, and the resulting PCM audio is streamed back to the App.</li>
@@ -716,10 +725,18 @@
 
                 <h3>17.7 PERSONAL DATA USE FOR AI TRAINING</h3>
                 <p>We do NOT use any personal data processed through our server (including voice audio, conversation
-                    transcripts, or location history) to train, fine-tune, or evaluate any AI model. Data forwarded to
-                    third-party AI providers (Google Gemini, AssemblyAI, ElevenLabs, DeepInfra) is governed by those
-                    providers' data-use and training policies. We recommend reviewing the privacy policies of those
-                    providers for details.</p>
+                    transcripts, or location history) to train, fine-tune, or evaluate any AI model.</p>
+                <p>Regarding third-party AI providers:</p>
+                <ul>
+                    <li><strong>Google Gemini API:</strong> Google's API usage terms state that data submitted via the
+                        Gemini API is not used to train Google's models by default. Google processes this data only to
+                        provide the requested service.</li>
+                    <li><strong>AssemblyAI:</strong> Under our DPA, AssemblyAI does not use audio data submitted via
+                        real-time transcription APIs to train its models.</li>
+                    <li><strong>ElevenLabs / DeepInfra / gTTS:</strong> Only anonymised text strings (AI-generated
+                        responses, not user content) are submitted for speech synthesis. We recommend reviewing each
+                        provider's privacy policy for their current data-use terms.</li>
+                </ul>
 
                 <h3>17.8 BACKUP AND DISASTER RECOVERY</h3>
                 <ul>
@@ -744,14 +761,17 @@
                     <li>Where required by law (e.g., GDPR consent refresh, Quebec Law 25), seek fresh consent before
                         processing data under new terms.</li>
                 </ul>
-                <p>Continued use of the App after the effective date of any updated Policy constitutes your acceptance
-                    of the changes, to the extent permitted by law.</p>
+                <p>Where changes are material and require renewed consent under applicable law (e.g., GDPR or Quebec Law
+                    25), we will obtain that consent before processing your data under the updated terms. For
+                    non-material changes, continued use of the App after the effective date may be treated as
+                    acceptance, to the extent permitted by law. EU/EEA users' rights are not affected by this clause.</p>
             </section>
 
             <section id="section-19">
                 <h2>19. GOVERNING LAW AND DISPUTE RESOLUTION</h2>
-                <p>This Policy and any disputes related to it are governed by the laws of Girona, Spain, without regard
-                    to conflict-of-law principles.</p>
+                <p>This Policy and any disputes related to it are governed by the laws of Spain and, where applicable,
+                    European Union law, without regard to conflict-of-law principles. The courts of Girona, Spain shall
+                    have non-exclusive jurisdiction over any dispute arising under this Policy.</p>
                 <p>Notwithstanding the above:</p>
                 <ul>
                     <li>EU/EEA residents retain the right to bring claims before their local supervisory authority or
@@ -765,10 +785,10 @@
                 <h2>20. CONTACT US</h2>
                 <p>For any privacy-related questions, requests, or complaints:</p>
                 <div class="contact-details">
-                    <p><strong>Email:</strong>info@aimdal.com</p>
+                    <p><strong>Email:</strong> info@aimdal.com</p>
+                    <p><strong>Postal address:</strong> [Full registered address, Girona, Spain]</p>
                     <p><strong>Website:</strong> <a href="https://aimdal.com/privacy">https://aimdal.com/privacy</a></p>
                 </div>
-                <p><strong>EU Representative:</strong> info@aimdal.com</p>
                 <p><strong>Canadian Privacy Officer:</strong> info@aimdal.com</p>
                 <p>We aim to acknowledge all requests within 3 business days and resolve them within the statutory
                     timeframes specified in Section 10.</p>
