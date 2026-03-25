@@ -105,14 +105,9 @@
 
 /* Custom Cursor */
 @media (pointer: fine) {
-  body {
-    cursor: none;
+  *, *::before, *::after {
+    cursor: none !important;
   }
-
-  a, button, .feature-card, .step, .testimonial-card {
-    cursor: none;
-  }
-
 }
 
 /* Reset & Base Styles */
