@@ -46,7 +46,8 @@ describe('initParticles', () => {
         // Verify mock was called 60 times
         expect(window.createParticle).toHaveBeenCalledTimes(60);
 
-        // Ensure it's called with the correct container
-        expect(window.createParticle).toHaveBeenCalledWith(container);
+        // The real function is now passed a DocumentFragment, not the container itself directly.
+        // We can check if it was called with any DocumentFragment
+        expect(window.createParticle).toHaveBeenCalledWith(expect.any(window.DocumentFragment));
     });
 });
